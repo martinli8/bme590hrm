@@ -6,7 +6,7 @@ class readData():
         self.voltage = None
         self.columnTime = 1
         self.columnVoltage = 2
-        self.checkTimeNan()
+        # self.checkTimeNan()
 
     @property
     def time(self):
@@ -15,16 +15,20 @@ class readData():
     @time.setter
     def time(self,time):
         import pandas as pd
+        timeList = []
         timeCol = pd.read_csv(self.csvFileName, header=None, usecols=[0])
-        self.__time = timeCol
-        self.checkTimeNaN()
+        for row in timeCol.values:
+            timeList.append(row[0])
+        self.__time = timeList
+        self.checkTimeNaN(self.__time)
 
     def checkTimeNaN(self):
-        for i, row in enumerate(self.time.values)
-            if i == "NaN"
-                print('got it')
-            else
-                print("didn't get any")
+        import numpy as np
+        a = np.empty(1)
+        a[:] = np.nan
+        for i,rows in enumerate(self.__time):
+            if (str(self.__time[i]) == str(a[0])):
+                self.__time[i] = (self.__time[i-1] + self.__time[i+1])/2
 
     @property
     def voltage(self):
