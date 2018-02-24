@@ -20,7 +20,11 @@ class readData():
         self.checkTimeNaN()
 
     def checkTimeNaN(self):
-        for 
+        for i, row in enumerate(self.time.values)
+            if i == "NaN"
+                print('got it')
+            else
+                print("didn't get any")
 
     @property
     def voltage(self):
