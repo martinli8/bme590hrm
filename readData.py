@@ -20,7 +20,7 @@ class readData():
         for row in timeCol.values:
             timeList.append(row[0])
         self.__time = timeList
-        self.checkTimeNaN(self.__time)
+        self.checkTimeNaN()
 
     def checkTimeNaN(self):
         import numpy as np
