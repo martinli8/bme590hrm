@@ -4,8 +4,8 @@ def main():
     myDataset = readData("test_data2.csv")
     # hrmObject = hrmData(myDataset)
     # print(hrmObject.rawData.time[324].type)
-    print(myDataset.time[324])
-    # print(myDataset.voltage[338])
+    # print(myDataset.time[324])
+    print(myDataset.voltage[338])
     # print(myDataset.voltage)
 
 

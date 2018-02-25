@@ -51,6 +51,7 @@ class readData():
             voltList.append(row[0])
         self.__voltage = voltList
         self.checkVoltageNan()
+        self.convert_to_native_python_dtype2()
 
     def checkVoltageNan(self):
         import numpy as np
@@ -60,6 +61,14 @@ class readData():
             if (str(self.__voltage[i]) == str(b[0])):
                 self.__voltage[i] = (
                     self.__voltage[i-1] + self.__voltage[i+1])/2
+
+
+    def convert_to_native_python_dtype2(self):
+        import numpy
+        regularList = [];
+        for i in self.__voltage:
+            regularList.append(numpy.asscalar(i))
+        self.__voltage = regularList
     #
     # def convertToList(self):
     #     regularList = [];

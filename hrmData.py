@@ -20,7 +20,7 @@ class hrmData():
 
     def autocorr(self):
         import numpy as np
-        scaledVoltageData = self.rawData.voltage * 1000
+        self.rawData.voltage = [x * 1000 for x in self.rawData.voltage]
         # scaledVoltageData = self.rawData.voltage.type
         print(scaledVoltageData)
         #
