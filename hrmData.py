@@ -12,7 +12,7 @@ class hrmData():
     def mean_hr_bpm(self):
         return self.__mean_hr_bpm
 
-    # @mean_hr_bpm.setter
+    @mean_hr_bpm.setter
     def mean_hr_bpm(self,mean_hr_bpm):
         import numpy as np
         a = self.autocorr()
