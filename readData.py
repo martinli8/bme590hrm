@@ -21,7 +21,7 @@ class readData():
             timeList.append(row[0])
         self.__time = timeList
         self.checkTimeNaN()
-        self.convert_to_native_python_dtype()
+        # self.convert_to_native_python_dtype()
 
     def checkTimeNaN(self):
         import numpy as np
@@ -51,7 +51,7 @@ class readData():
             voltList.append(row[0])
         self.__voltage = voltList
         self.checkVoltageNan()
-        self.convert_to_native_python_dtype2()
+        # self.convert_to_native_python_dtype2()
 
     def checkVoltageNan(self):
         import numpy as np
