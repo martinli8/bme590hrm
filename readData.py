@@ -21,6 +21,7 @@ class readData():
             timeList.append(row[0])
         self.__time = timeList
         self.checkTimeNaN()
+        self.convert_to_native_python_dtype()
 
     def checkTimeNaN(self):
         import numpy as np
@@ -29,6 +30,13 @@ class readData():
         for i, rows in enumerate(self.__time):
             if (str(self.__time[i]) == str(a[0])):
                 self.__time[i] = (self.__time[i-1] + self.__time[i+1])/2
+
+    def convert_to_native_python_dtype(self):
+        import numpy
+        regularList = [];
+        for i in self.__time:
+            regularList.append(numpy.asscalar(i))
+        self.__time = regularList
 
     @property
     def voltage(self):
@@ -52,3 +60,7 @@ class readData():
             if (str(self.__voltage[i]) == str(b[0])):
                 self.__voltage[i] = (
                     self.__voltage[i-1] + self.__voltage[i+1])/2
+    #
+    # def convertToList(self):
+    #     regularList = [];
+    #     for
