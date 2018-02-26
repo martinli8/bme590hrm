@@ -1,7 +1,7 @@
 def main():
     from readData import readData
     from hrmData import hrmData
-    myDataset = readData("test_data2.csv")
+    myDataset = readData("test_data28.csv")
     hrmObject = hrmData(myDataset)
     # print(hrmObject.rawData.time[324].type)
     # print(myDataset.time[324])

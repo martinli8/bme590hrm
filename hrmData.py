@@ -7,6 +7,7 @@ class hrmData():
         self.duration = None
         self.num_beats = None
         self.beats = None
+        self.adjVol = None
 
     @property
     def mean_hr_bpm(self):
@@ -15,26 +16,41 @@ class hrmData():
     @mean_hr_bpm.setter
     def mean_hr_bpm(self,mean_hr_bpm):
         import numpy as np
+        import matplotlib.pyplot as plt
         meanVal = np.mean(self.rawData.voltage)
         self.rawData.voltage[:] = [ x - meanVal for x in self.rawData.voltage]
-        a = self.autocorr()
-        self.corr2csv(a)
+        self.adjVol = self.smoothVoltage(self.rawData.voltage)
+        autoCorrelationData = self.autocorr(self.rawData.voltage)
+        lagTime = self.determineLagTime(autoCorrelationData)
+        self.visualizeData(autoCorrelationData)
 
-    def autocorr(self):
+
+    def smoothVoltage(self,data):
+        from scipy.signal import savgol_filter
+        import matplotlib.pyplot as plt
+        import warnings
+        warnings.filterwarnings(action="ignore", module="scipy", \
+            message="^internal gelsd")
+        return savgol_filter(data,11,5)
+
+    def autocorr(self,data):
         import numpy as np
         import math
-        # scaledVoltageData = self.rawData.voltage
-        # print(scaledVoltageData)
-        # #
-        result = np.correlate(self.rawData.voltage, self.rawData.voltage, mode='same')
+        firstNValuesToSkip = 10;
+        result = np.correlate(data, data, mode='same')
         result = result[math.ceil(len(result)/2):]
+        result = result[firstNValuesToSkip:]
         return result;
 
         ## code taken from https://stackoverflow.com/
         #questions/643699/how-can-i-use-numpy-correlate-to-do-autocorrelation/
         #676302
 
-    def corr2csv(self,a):
+    def determineLagTime(self,data):
+        print(max(data))
+
+
+    def visualizeData(self,a):
         import matplotlib.pyplot as plt
         import pandas as pd
         df = pd.DataFrame(a)
