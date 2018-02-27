@@ -33,7 +33,7 @@ class readData():
 
     def convert_to_native_python_dtype(self):
         import numpy
-        regularList = [];
+        regularList = []
         for i in self.__time:
             regularList.append(numpy.asscalar(i))
         self.__time = regularList
@@ -62,10 +62,9 @@ class readData():
                 self.__voltage[i] = (
                     self.__voltage[i-1] + self.__voltage[i+1])/2
 
-
     def convert_to_native_python_dtype2(self):
         import numpy
-        regularList = [];
+        regularList = []
         for i in self.__voltage:
             regularList.append(numpy.asscalar(i))
         self.__voltage = regularList

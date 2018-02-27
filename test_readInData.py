@@ -1,5 +1,6 @@
 import pytest
 
+
 def test_faulty_data_load():
     from readData import readData
     myDataset1 = readData("test_data28.csv")
