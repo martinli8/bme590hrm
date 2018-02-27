@@ -1,25 +1,20 @@
 class timeSegment():
 
-    def __init__(self,readDataClass,intervalStart = None,intervalEnd = None, \
-                timeSegment = None):
+    DEFAULT_intervalStart = 0
+
+    def __init__(self, readDataClass, timeSegment=None):
 
         self.rawData = readDataClass
-        self.intervalStart = intervalStart
-        self.intervalEnd = intervalEnd
-        self.timeSegment = 2
+        self.timeSegment = timeSegment if timeSegment is not None else 2
         self.listOfSegmentsIdx = None
         self.segmentList = None
 
-        #code assumes that if intervalStart is None then it is 0
-        #code assumes that if intervalEnd is None then it is the last
-        #                                        time timeSegment
-
     @property
     def listOfSegmentsIdx(self):
-            return self.__listOfSegmentsIdx
+        return self.__listOfSegmentsIdx
 
     @listOfSegmentsIdx.setter
-    def listOfSegmentsIdx(self,listOfSegmentsIdx):
+    def listOfSegmentsIdx(self, listOfSegmentsIdx):
         self.determineTimeIndices()
 
     def determineTimeIndices(self):
@@ -46,7 +41,7 @@ class timeSegment():
         return self.__segmentList
 
     @segmentList.setter
-    def segmentList(self,segmentList):
+    def segmentList(self, segmentList):
         self.determineSegments()
 
     def determineSegments(self):
@@ -57,7 +52,7 @@ class timeSegment():
         voltListToAdd = voltage[beginningValue:nextValue]
         mySegmentList[0].append(voltListToAdd)
 
-        for counter in range(0,(len(self.listOfSegmentsIdx)-1)):
+        for counter in range(0, (len(self.listOfSegmentsIdx)-1)):
             beginningValue = nextValue
             nextValue = self.listOfSegmentsIdx[counter+1]
             voltListToAdd2 = voltage[beginningValue:nextValue]
@@ -69,14 +64,3 @@ class timeSegment():
                 flatList.append(y)
 
             self.__segmentList = flatList
-
-    @property
-    def intervalStart(self):
-        return self.__intervalStart
-
-    @intervalStart.setter
-    def intervalStart(self,intervalStart):
-        self.determineIfZero()
-
-    def determineIfZero(self):
-        pass
