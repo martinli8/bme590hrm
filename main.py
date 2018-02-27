@@ -8,7 +8,7 @@ def main():
     # print(myTimePoints.intervalStart)
     hrmObject = hrmData(myDataset,0,10)
     # print(hrmObject.intervalEnd)
-    print(hrmObject.mean_hr_bpm)
+    print(hrmObject.voltage_extremes)
     # print(hrmObject.interval)
     # print(hrmObject.rawData.time[324].type)
     # print(myDataset.time[324])
