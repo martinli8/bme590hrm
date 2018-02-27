@@ -1,13 +1,15 @@
 class hrmData():
 
-    def __init__(self,readDataClass):
+    def __init__(self,readDataClass,interval = None):
         self.rawData = readDataClass
+        self.interval = interval
         self.mean_hr_bpm = None
         self.voltage_extremes = None
         self.duration = None
         self.num_beats = None
         self.beats = None
         self.adjVol = None
+
 
     @property
     def mean_hr_bpm(self):
@@ -47,7 +49,28 @@ class hrmData():
         #676302
 
     def determineLagTime(self,data):
-        print(max(data))
+        heartRateList = []
+        import numpy as np
+        import math
+        ind = np.argmax(data) + 10;
+        trueInd = ind - 10;
+        mymax = np.amax(data)
+        timeAtMax = self.rawData.time[ind]
+        heartRateOverAllTime = 60/timeAtMax
+        self.__mean_hr_bpm = heartRateOverAllTime
+
+        # timeToIncrement = math.ceil(1.2*ind)
+        # getRidOfCurrentPeak = math.ceil(trueInd*1.1)
+
+        # timeFrame = data[getRidOfCurrentPeak:trueInd + timeToIncrement]
+        # print(timeFrame)
+
+        # print(heartRate)
+
+
+        print(timeAtMax)
+        print(ind)
+        print(mymax)
 
 
     def visualizeData(self,a):
