@@ -1,8 +1,13 @@
 class hrmData():
 
-    def __init__(self,readDataClass,interval = None):
+    def __init__(self,readDataClass,intervalStart = None,intervalEnd = None)
+
         self.rawData = readDataClass
-        self.interval = interval
+
+        self.intervalStart = intervalStart
+        self.intervalEnd = intervalEnd
+        self.timeSegment = 2;
+
         self.mean_hr_bpm = None
         self.voltage_extremes = None
         self.duration = None
@@ -52,25 +57,20 @@ class hrmData():
         heartRateList = []
         import numpy as np
         import math
-        ind = np.argmax(data) + 10;
-        trueInd = ind - 10;
-        mymax = np.amax(data)
-        timeAtMax = self.rawData.time[ind]
-        heartRateOverAllTime = 60/timeAtMax
-        self.__mean_hr_bpm = heartRateOverAllTime
+        if self.intervalStart == None:
+            ind = np.argmax(data) + 10;
+            trueInd = ind - 10;
+            mymax = np.amax(data)
+            timeAtMax = self.rawData.time[trueInd]
+            heartRateOverAllTime = 60/timeAtMax
+            self.__mean_hr_bpm = heartRateOverAllTime
 
-        # timeToIncrement = math.ceil(1.2*ind)
-        # getRidOfCurrentPeak = math.ceil(trueInd*1.1)
+            print(heartRateOverAllTime)
+            print(timeAtMax)
 
-        # timeFrame = data[getRidOfCurrentPeak:trueInd + timeToIncrement]
-        # print(timeFrame)
+        else:
 
-        # print(heartRate)
-
-
-        print(timeAtMax)
-        print(ind)
-        print(mymax)
+            self.__mean_hr_bpm = 20
 
 
     def visualizeData(self,a):
@@ -79,4 +79,4 @@ class hrmData():
         df = pd.DataFrame(a)
         df.to_csv('list.csv',index = False,header = False)
         plt.plot(a)
-        plt.show()
+        # plt.show()
