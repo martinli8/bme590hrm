@@ -91,9 +91,9 @@ class hrmData():
         return self.__voltage_extremes
 
     @voltage_extremes.setter
-    def voltage_extremes(self,voltage_extremes):
+    def voltage_extremes(self, voltage_extremes):
         import numpy as np
         maxValue = np.amax(self.rawData.voltage)
         minValue = np.amin(self.rawData.voltage)
-        maxMinTuple = (maxValue,minValue)
+        maxMinTuple = (maxValue, minValue)
         self.__voltage_extremes = maxMinTuple
