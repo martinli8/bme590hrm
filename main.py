@@ -2,11 +2,11 @@ def main():
     from readData import readData
     from hrmData import hrmData
     from timeSegment import timeSegment
-    myDataset = readData("easytestfile.csv")
-    myTimePoints = timeSegment(myDataset, 4)
-    print(myTimePoints.segmentList)
+    myDataset = readData("test_data2.csv")
+    # myTimePoints = timeSegment(myDataset, 4)
+    # print(myTimePoints.segmentList)
     # print(myTimePoints.intervalStart)
-    # hrmObject = hrmData(myDataset,3)
+    hrmObject = hrmData(myDataset)
     # print(hrmObject.mean_hr_bpm)
     # print(hrmObject.interval)
     # print(hrmObject.rawData.time[324].type)
