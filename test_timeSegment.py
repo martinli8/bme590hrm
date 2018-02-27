@@ -15,5 +15,7 @@ def test_voltage_list():
     from readData import readData
     from hrmData import hrmData
     from timeSegment import timeSegment
-    myDataset = read('easytestfile.csv')
+    myDataset = readData('easytestfile.csv')
     myTimePoints = timeSegment(myDataset)
+    expectedVoltageValues = [[100, 101], [102, 103], [104, 105], [106, 107], [108, 109], [110, 111], [112, 113], [114, 115], [116, 117], [118, 119]]
+    assert myTimePoints.segmentList == expectedVoltageValues

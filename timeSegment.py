@@ -70,11 +70,13 @@ class timeSegment():
 
             self.__segmentList = flatList
 
-    @property intervalStart(self):
+    @property
+    def intervalStart(self):
         return self.__intervalStart
 
     @intervalStart.setter
-        def intervalStart(self,intervalStart)
+    def intervalStart(self,intervalStart):
         self.determineIfZero()
 
-    def determineIfZero
+    def determineIfZero(self):
+        pass
