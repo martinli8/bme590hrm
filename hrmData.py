@@ -1,6 +1,6 @@
 class hrmData():
 
-    def __init__(self,readDataClass,intervalStart = None,intervalEnd = None)
+    def __init__(self,readDataClass,intervalStart = None,intervalEnd = None):
 
         self.rawData = readDataClass
 
