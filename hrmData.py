@@ -97,3 +97,13 @@ class hrmData():
         minValue = np.amin(self.rawData.voltage)
         maxMinTuple = (maxValue, minValue)
         self.__voltage_extremes = maxMinTuple
+
+    @property
+    def num_beats(self):
+        return self.__num_beats
+
+    @num_beats.setter
+    def num_beats(self,num_beats):
+        print(self.duration)
+        print(self.mean_hr_bpm)
+        self.__num_beats = self.duration/60*(self.mean_hr_bpm)
