@@ -49,8 +49,8 @@ class timeSegment():
         time = self.rawData.time
         timeValueToMatch = self.timeSegment
         lastTimePoint = time[-1]
-        lastSegmentTP = math.floor(math.floor(lastTimePoint)/
-                        self.timeSegment)*self.timeSegment
+        lastSegmentTP = math.floor(math.floor(lastTimePoint) / self.timeSegment)
+                                   *self.timeSegment
         print(lastSegmentTP)
 
         indexListOfMatch = []
