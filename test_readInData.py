@@ -14,8 +14,8 @@ def test_regular_data_read():
     from readData import readData
     myDataset1 = readData("test_data3shortTime.csv")
     timeFromCSV = [0, 0.003, 0.006, 0.008, 0.011, 0.014, 0.017, 0.019, 0.022,
-    0.025, 0.028, 0.031, 0.033, 0.036, 0.039, 0.042, 0.044,
-    0.047, 0.05, 0.053]
+                   0.025, 0.028, 0.031, 0.033, 0.036, 0.039, 0.042, 0.044,
+                   0.047, 0.05, 0.053]
     assert pytest.approx(myDataset1.time[0:20]) == timeFromCSV
 
 

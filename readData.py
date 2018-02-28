@@ -58,8 +58,6 @@ class readData():
         for i, rows in enumerate(self.__time):
             if (str(self.__time[i]) == str(a[0])):
                 self.__time[i] = (self.__time[i-1] + self.__time[i+1])/2
-
-
     @property
     def voltage(self):
         return self.__voltage
@@ -111,6 +109,7 @@ class readData():
         import warnings
         import numpy as np
         import logging
-        outsideRange = [i for i in self.__voltage if (i >= 300)]
+        voltageThreshold = 300
+        outsideRange = [i for i in self.__voltage if (i >= voltageThreshold)]
         if len(outsideRange) > 0:
             warnings.warn("outside of normal ECG range!", UserWarning)
