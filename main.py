@@ -1,7 +1,7 @@
 def main():
     from readData import readData
-    myDataset = readData("test_data28.csv")
-    print(myDataset.time[324])
+    myDataset = readData("test_data31.csv")
+    print(myDataset.time[38])
     print(myDataset.voltage[338])
     # print(myDataset.voltage)
 

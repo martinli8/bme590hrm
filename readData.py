@@ -1,5 +1,6 @@
 class readData():
 
+
     def __init__(self, csvFileName):
         self.csvFileName = csvFileName
         self.time = None
@@ -30,6 +31,7 @@ class readData():
             if (str(self.__time[i]) == str(a[0])):
                 self.__time[i] = (self.__time[i-1] + self.__time[i+1])/2
 
+
     @property
     def voltage(self):
         return self.__voltage
@@ -43,6 +45,7 @@ class readData():
             voltList.append(row[0])
         self.__voltage = voltList
         self.checkVoltageNan()
+        self.checkOutOfECGRange()
 
     def checkVoltageNan(self):
         import numpy as np
@@ -52,3 +55,10 @@ class readData():
             if (str(self.__voltage[i]) == str(b[0])):
                 self.__voltage[i] = (
                     self.__voltage[i-1] + self.__voltage[i+1])/2
+
+    def checkOutOfECGRange(self):
+        import numpy as np
+        import logging
+        outsideRange = [i for i in self.__voltage if i>=300]
+        if len(outsideRange) > 0:
+            print("values are outside normal ECG range")
