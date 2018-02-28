@@ -52,7 +52,7 @@ class timeSegment():
         lastSegmentTP = math.floor(
                         math.floor(
                             lastTimePoint)/self.timeSegment)*self.timeSegment
-        # print(lastSegmentTP)
+
 
         indexListOfMatch = []
 
