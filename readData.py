@@ -58,6 +58,7 @@ class readData():
         for i, rows in enumerate(self.__time):
             if (str(self.__time[i]) == str(a[0])):
                 self.__time[i] = (self.__time[i-1] + self.__time[i+1])/2
+                
     @property
     def voltage(self):
         return self.__voltage
