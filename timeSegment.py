@@ -53,7 +53,6 @@ class timeSegment():
                         math.floor(
                             lastTimePoint)/self.timeSegment)*self.timeSegment
 
-
         indexListOfMatch = []
 
         while timeValueToMatch <= lastSegmentTP:
