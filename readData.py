@@ -111,6 +111,6 @@ class readData():
         import warnings
         import numpy as np
         import logging
-        outsideRange = [i for i in self.__voltage if i > = 300]
+        outsideRange = [i for i in self.__voltage if (i >= 300)]
         if len(outsideRange) > 0:
             warnings.warn("outside of normal ECG range!", UserWarning)
