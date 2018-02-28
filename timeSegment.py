@@ -1,6 +1,18 @@
 class timeSegment():
 
-    DEFAULT_intervalStart = 0
+    """This is a timeSegment class.
+
+    Attributes:
+        :rawData (readData): readData class that contains time and voltage
+
+        :timeSegment (integer): number of seconds to split data segments into
+
+        :listOfSegmentsIdx (list): list of time indices that data is split into
+
+        :segmentList (list): list of list of voltages that are split up into
+        segments
+
+    """
 
     def __init__(self, readDataClass, timeSegment=None):
 
@@ -15,9 +27,23 @@ class timeSegment():
 
     @listOfSegmentsIdx.setter
     def listOfSegmentsIdx(self, listOfSegmentsIdx):
+        """
+        Finds the time index for each segment of X seconds
+
+        :param self: timeSegment Object
+        :returns: listOfSegmentsIdx attribute
+        """
+
         self.determineTimeIndices()
 
     def determineTimeIndices(self):
+        """
+        Finds the time index for each segment of X seconds
+
+        :param self: timeSegment Object
+        :returns: listOfSegmentsIdx attribute
+        """
+
         import math
         import numpy as np
         time = self.rawData.time
