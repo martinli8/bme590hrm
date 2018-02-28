@@ -49,7 +49,8 @@ class timeSegment():
         time = self.rawData.time
         timeValueToMatch = self.timeSegment
         lastTimePoint = time[-1]
-        lastSegmentTP = math.floor(math.floor(lastTimePoint)/self.timeSegment)*self.timeSegment
+        lastSegmentTP = math.floor(math.floor(lastTimePoint)/ \
+        self.timeSegment)*self.timeSegment
         print(lastSegmentTP)
 
         indexListOfMatch = []
@@ -71,6 +72,12 @@ class timeSegment():
         self.determineSegments()
 
     def determineSegments(self):
+        """
+        Finds the voltages for each time segment
+
+        :param self: timeSegment Object
+        :returns: determineSegments attribute, which is a list of lists
+        """
         mySegmentList = [[] for _ in range(len(self.listOfSegmentsIdx))]
         voltage = self.rawData.voltage
         beginningValue = 0
