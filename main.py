@@ -6,7 +6,7 @@ def main():
     # myTimePoints = timeSegment(myDataset, 4)
     # print(myTimePoints.segmentList)
     # print(myTimePoints.intervalStart)
-    hrmObject = hrmData(myDataset,0,10)
+    hrmObject = hrmData(myDataset, 0, 10)
     print(hrmObject.num_beats)
     # print(hrmObject.voltage_extremes)
     # print(hrmObject.interval)

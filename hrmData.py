@@ -103,7 +103,7 @@ class hrmData():
         return self.__num_beats
 
     @num_beats.setter
-    def num_beats(self,num_beats):
+    def num_beats(self, num_beats):
         print(self.duration)
         print(self.mean_hr_bpm)
         self.__num_beats = self.duration/60*(self.mean_hr_bpm)
