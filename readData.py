@@ -58,7 +58,7 @@ class readData():
         b = "bad data"
         a[:] = np.nan
         # print(a[0].type)
-        self.__time = [i if i!= "bad data" else a[0] for i in self.__time]
+        self.__time = [i if i != "bad data" else a[0] for i in self.__time]
         for i, rows in enumerate(self.__time):
             if (str(self.__time[i]) == str(a[0])):
                 self.__time[i] = (
@@ -99,7 +99,8 @@ class readData():
         import numpy as np
         b = np.empty(1)
         b[:] = np.nan
-        self.__voltage = [i if i!= "bad data" else b[0] for i in self.__voltage]
+        self.__voltage = [i if i != "bad data"
+                          else b[0] for i in self.__voltage]
         for i, rows in enumerate(self.__voltage):
             if (str(self.__voltage[i]) == str(b[0])):
                 self.__voltage[i] = (
