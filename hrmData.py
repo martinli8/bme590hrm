@@ -59,6 +59,7 @@ class hrmData():
 
     @mean_hr_bpm.setter
     def mean_hr_bpm(self, mean_hr_bpm):
+      
         """
         Finds the mean heart rate over a certain time interval
 
@@ -103,13 +104,13 @@ class hrmData():
         :param data: voltage with DC subtracted
         :returns: list of voltage values, filter applied
         """
-
-        from scipy.signal import savgol_filter
-        import matplotlib.pyplot as plt
-        import warnings
-        warnings.filterwarnings(action="ignore", module="scipy",
-                                message="^internal gelsd")
-        return savgol_filter(data, 11, 5)
+        
+        meanSubtractedVoltage = self.subtractDCOffset()
+        self.adjVol = self.smoothVoltage(meanSubtractedVoltage)
+        autoCorrelationData = self.autocorr(meanSubtractedVoltage)
+        lagTimes = self.determineLagTime(autoCorrelationData)
+        self.intervalHR(lagTimes)
+        self.visualizeData(autoCorrelationData)
 
     def autocorr(self, data):
         """
@@ -119,7 +120,7 @@ class hrmData():
         :param data: smoothed data
         :returns: autocorrelation data
         """
-
+      
         import numpy as np
         import math
         firstNValuesToSkip = 14
@@ -212,7 +213,7 @@ class hrmData():
         :param self: hrmData Object
         :returns: voltage_extremes attribute as a Tuple
         """
-
+  
         import numpy as np
         maxValue = np.amax(self.rawData.voltage)
         minValue = np.amin(self.rawData.voltage)
@@ -225,6 +226,7 @@ class hrmData():
 
     @num_beats.setter
     def num_beats(self, num_beats):
+
         """Guesses the number of beats that occur during the data by dividing
         the heart rate and the time accordingly
 
@@ -252,3 +254,4 @@ class hrmData():
         """
         import numpy as np
         self.__beats = np.linspace(0, self.duration, self.num_beats)
+
