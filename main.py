@@ -2,10 +2,11 @@ def main():
     from readData import readData
     from hrmData import hrmData
 
-    csvFileName = "test_data30.csv"
+    csvFileName = "test_data32.csv"
     myDataset = readData(csvFileName)
-    print(myDataset.voltage)
-    # hrmObject = hrmData(myDataset)
+    # print(myDataset.voltage)
+    hrmObject = hrmData(myDataset)
+    print(hrmObject.mean_hr_bpm)
     # print(hrmObject.meanSubtractedVoltage[0:5])
     # print(hrmObject.beats)
     # print(myDataset.time[324])

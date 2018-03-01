@@ -242,7 +242,7 @@ class hrmData():
 
     @beats.setter
     def beats(self,beats):
-        """Guesses where the beats are during the data and stores
+        """Guesses where the beats are2 during the data and stores
         in a numpy array, just performs a linspace with start time, end time,
         and the number of beats determined in num_beats, VERY ROUGH ESTIMATE
 
