@@ -1,29 +1,45 @@
 def main():
     from readData import readData
-    myDataset = readData("test_data30.csv")
-    # print(myDataset.time.type())
-    if (myDataset.time[965] == "bad data"):
-        print("you got got")
-    print(myDataset.time[965])
-    # print(myDataset.time[965].type())
-    # print(myDataset.voltage[338])
-
     from hrmData import hrmData
-    from timeSegment import timeSegment
-    myDataset = readData("test_data3.csv")
-    # myTimePoints = timeSegment(myDataset, 4)
-    # print(myTimePoints.segmentList)
-    # print(myTimePoints.intervalStart)
-    hrmObject = hrmData(myDataset, 0, 10)
-    print(hrmObject.num_beats)
-    # print(hrmObject.voltage_extremes)
-    # print(hrmObject.interval)
-    # print(hrmObject.rawData.time[324].type)
-    # print(myDataset.time[324])
-    # print(myDataset.voltage[338])
+    import numpy as np
+    csvFileName = "test_data31.csv"
+    myDataset = readData(csvFileName)
+    hrmObject = hrmData(myDataset)
+    write_to_json(csvFileName, hrmObject)
 
-    myDataset = readData("test_data31.csv")
-    print(myDataset.time[38])
+
+def write_to_json(csvFileName, hrmDataClass):
+    """ This method writes to a json file.
+
+    :param csvFileName: Takes in the name of the csv file to change to a json
+    :param hrmDataClass: Takes in the class with the attributes to save to json
+    :returns: Json file with same name as the original csv file with attributes
+
+    """
+
+    import pandas as pd
+    jsonFileName = csvFileName.rstrip('csv')
+    jsonFileName = jsonFileName + 'json'
+    print(jsonFileName)
+    mean_hr_bpm = hrmDataClass.mean_hr_bpm
+    voltage_extremes = hrmDataClass.voltage_extremes
+    duration = hrmDataClass.duration
+    num_beats = hrmDataClass.num_beats
+    beats = hrmDataClass.beats.tolist()
+
+    data = {'File Name': jsonFileName,
+            'mean_hr_bpm': mean_hr_bpm,
+            'voltage_extremes': voltage_extremes,
+            'duration': duration,
+            'num_beats': num_beats,
+            'beats': beats}
+
+    import json
+    with open(jsonFileName, 'w') as outfile:
+        json.dump(data, outfile)
+
+
+
 
 
 if __name__ == "__main__":
