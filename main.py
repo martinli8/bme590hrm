@@ -2,11 +2,14 @@ def main():
     from readData import readData
     from hrmData import hrmData
     import numpy as np
+    import json
     csvFileName = "test_data31.csv"
     myDataset = readData(csvFileName)
     hrmObject = hrmData(myDataset)
     write_to_json(csvFileName, hrmObject)
-
+    # with open('test_data31.json') as data_file:
+    #     data_loaded = json.load(data_file)
+    #     print(data_loaded.type)
 
 def write_to_json(csvFileName, hrmDataClass):
     """ This method writes to a json file.
@@ -27,7 +30,7 @@ def write_to_json(csvFileName, hrmDataClass):
     num_beats = hrmDataClass.num_beats
     beats = hrmDataClass.beats.tolist()
 
-    data = {'File Name': jsonFileName,
+    data = {'File Name': csvFileName,
             'mean_hr_bpm': mean_hr_bpm,
             'voltage_extremes': voltage_extremes,
             'duration': duration,

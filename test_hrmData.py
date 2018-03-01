@@ -25,11 +25,23 @@ def test_convertTimeToIdx():
 
 
 def test_voltage_extremes():
-    pass
+    from hrmData import hrmData
+    from readData import readData
+    from timeSegment import timeSegment
+    myDataset = readData("test_data31.csv")
+    hrmObject = hrmData(myDataset)
+    maxMinValue = (0.7875, -0.19375)
+    assert pytest.approx(hrmObject.voltage_extremes) == maxMinValue
 
 
 def test_num_beats():
-    pass
+    from hrmData import hrmData
+    from readData import readData
+    from timeSegment import timeSegment
+    myDataset = readData("test_data31.csv")
+    hrmObject = hrmData(myDataset)
+    numBeatsin31 = 19
+    assert numBeatsin31*0.8 < hrmObject.num_beats < numBeatsin31*1.2
 
 
 def test_time_of_beats():
@@ -45,4 +57,23 @@ def test_time_of_beats():
 
 
 def test_write_json():
-    pass
+    from main import main
+    from hrmData import hrmData
+    from readData import readData
+    import json
+    import unittest
+    from timeSegment import timeSegment
+    myDataset = readData("test_data31.csv")
+    hrmObject = hrmData(myDataset)
+    main()
+    data = {'File Name': hrmObject.rawData.csvFileName,
+            'mean_hr_bpm': hrmObject.mean_hr_bpm,
+            'voltage_extremes': hrmObject.voltage_extremes,
+            'duration': hrmObject.duration,
+            'num_beats': hrmObject.num_beats,
+            'beats': hrmObject.beats}
+    with open('test_data31.json') as data_file:
+        data_loaded = json.load(data_file)
+    data_loaded_list = data_loaded.items()
+    data_list = data.items()
+    assert data_loaded_list == data_list
