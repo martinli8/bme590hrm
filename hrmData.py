@@ -189,7 +189,7 @@ class hrmData():
 
     def visualizeData(self, data):
         """
-        If data is to be visualized, this does it
+        If data is to be visualized, this does it, helps with testing
 
         :param self: hrmData hrmObject
         :param data: Voltages to visualize
@@ -241,7 +241,7 @@ class hrmData():
         return self.__beats
 
     @beats.setter
-    def beats(self,beats):
+    def beats(self, beats):
         """Guesses where the beats are2 during the data and stores
         in a numpy array, just performs a linspace with start time, end time,
         and the number of beats determined in num_beats, VERY ROUGH ESTIMATE
@@ -251,4 +251,4 @@ class hrmData():
 
         """
         import numpy as np
-        self.__beats = np.linspace(0,self.duration,self.num_beats)
+        self.__beats = np.linspace(0, self.duration, self.num_beats)
