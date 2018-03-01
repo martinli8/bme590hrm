@@ -69,6 +69,12 @@ class timeSegment():
 
     @segmentList.setter
     def segmentList(self, segmentList):
+        """
+        Finds the corresponding voltages fo reach time segment
+
+        :param self: timeSegment Object, segment List Attributes
+        :returns: Segment lists attribute, list of list
+        """
         self.determineSegments()
 
     def determineSegments(self):
@@ -76,7 +82,7 @@ class timeSegment():
         Finds the voltages for each time segment
 
         :param self: timeSegment Object
-        :returns: determineSegments attribute, which is a list of lists
+        :returns: segmentlists attribute, which is a list of lists
         """
         mySegmentList = [[] for _ in range(len(self.listOfSegmentsIdx))]
         voltage = self.rawData.voltage
