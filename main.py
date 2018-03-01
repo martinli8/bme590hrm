@@ -1,9 +1,9 @@
 def main():
     from readData import readData
     from hrmData import hrmData
-    myDataset = readData("test_data28.csv")
+    myDataset = readData("test_data31.csv")
     hrmObject = hrmData(myDataset)
-    # print(hrmObject.rawData.time[324].type)
+    print(hrmObject.meanSubtractedVoltage[0:5])
     # print(myDataset.time[324])
     # print(myDataset.voltage[338])
     # print(myDataset.voltage)
