@@ -46,7 +46,8 @@ class readData():
 
     def checkTimeNaN(self):
         """
-        Corrects any "NaN"s or blanks in the actual data when read in
+        Corrects any "NaN"s or blanks or "bad data" in the actual
+        data when read in
 
         :param self: readData class
         :returns: the time in the ReadData Class, Nans corrected
@@ -54,10 +55,14 @@ class readData():
 
         import numpy as np
         a = np.empty(1)
+        b = "bad data"
         a[:] = np.nan
+        # print(a[0].type)
+        self.__time = [i if i != "bad data" else a[0] for i in self.__time]
         for i, rows in enumerate(self.__time):
             if (str(self.__time[i]) == str(a[0])):
-                self.__time[i] = (self.__time[i-1] + self.__time[i+1])/2
+                self.__time[i] = (
+                    float(self.__time[i-1]) + float(self.__time[i+1]))/2
 
     @property
     def voltage(self):
@@ -81,7 +86,7 @@ class readData():
             voltList.append(row[0])
         self.__voltage = voltList
         self.checkVoltageNan()
-        self.checkOutOfECGRange()
+        # self.checkOutOfECGRange()
 
     def checkVoltageNan(self):
         """
@@ -94,10 +99,12 @@ class readData():
         import numpy as np
         b = np.empty(1)
         b[:] = np.nan
+        self.__voltage = [i if i != "bad data"
+                          else b[0] for i in self.__voltage]
         for i, rows in enumerate(self.__voltage):
             if (str(self.__voltage[i]) == str(b[0])):
                 self.__voltage[i] = (
-                    self.__voltage[i-1] + self.__voltage[i+1])/2
+                    float(self.__voltage[i-1]) + float(self.__voltage[i+1]))/2
 
     def checkOutOfECGRange(self):
         """

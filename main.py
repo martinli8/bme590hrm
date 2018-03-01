@@ -1,5 +1,13 @@
 def main():
     from readData import readData
+    myDataset = readData("test_data30.csv")
+    # print(myDataset.time.type())
+    if (myDataset.time[965] == "bad data"):
+        print("you got got")
+    print(myDataset.time[965])
+    # print(myDataset.time[965].type())
+    # print(myDataset.voltage[338])
+
     from hrmData import hrmData
     from timeSegment import timeSegment
     myDataset = readData("test_data3.csv")
@@ -16,8 +24,6 @@ def main():
 
     myDataset = readData("test_data31.csv")
     print(myDataset.time[38])
-    print(myDataset.voltage[338])
-    # print(myDataset.voltage)
 
 
 if __name__ == "__main__":
