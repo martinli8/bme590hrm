@@ -13,6 +13,10 @@ def main():
     # print(hrmObject.rawData.time[324].type)
     # print(myDataset.time[324])
     # print(myDataset.voltage[338])
+
+    myDataset = readData("test_data31.csv")
+    print(myDataset.time[38])
+    print(myDataset.voltage[338])
     # print(myDataset.voltage)
 
 
