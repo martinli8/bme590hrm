@@ -4,6 +4,7 @@ def main():
     myDataset = readData("test_data31.csv")
     hrmObject = hrmData(myDataset)
     print(hrmObject.meanSubtractedVoltage[0:5])
+    print(hrmObject.beats)
     # print(myDataset.time[324])
     # print(myDataset.voltage[338])
     # print(myDataset.voltage)

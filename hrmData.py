@@ -46,6 +46,7 @@ class hrmData():
             else self.rawData.time[-1]
         self.timeSegment = 2
         self.mean_hr_bpm = None
+        self.global_mean_hr_bpm = None
         self.voltage_extremes = None
         self.duration = self.rawData.time[-1]
         self.num_beats = None
@@ -170,6 +171,8 @@ class hrmData():
         startIdx = self.convertTimeToIdx(self.intervalStart)
         endIdx = self.convertTimeToIdx(self.intervalEnd)
         self.__mean_hr_bpm = np.mean(lagTimes[startIdx:endIdx])
+        self.global_mean_hr_bpm = np.mean(lagTimes)
+        # print(self.global_mean_hr_bpm)
 
     def convertTimeToIdx(self, time):
         """
@@ -239,3 +242,13 @@ class hrmData():
 
     @beats.setter
     def beats(self,beats):
+        """Guesses where the beats  during the data and stores
+        in a numpy array, just performs a linspace with start time, end time,
+        and the number of beats determined in num_beats, VERY ROUGH ESTIMATE
+
+        :param self: hrmData Object
+        :returns: beats attribute
+
+        """
+        import numpy as np
+        self.__beats = np.linspace(0,self.duration,self.num_beats)
