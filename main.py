@@ -25,9 +25,6 @@ def main():
     myDataset = readData("test_data31.csv")
     print(myDataset.time[38])
 
-    # print(myDataset.voltage)    print(myDataset.voltage[338])
-
-
 
 if __name__ == "__main__":
     main()
