@@ -8,7 +8,7 @@ def test_faulty_data_load():
     nanValueVoltage1 = -0.345
     assert myDataset1.time[324] == nanValueTime1
     assert myDataset1.voltage[338] == nanValueVoltage1
-    
+
     myDataset2 = readData("test_data30.csv")
     badDataTime = 3.86
     badDataVoltage = -0.025
@@ -31,4 +31,3 @@ def test_checkOutOfRange():
     with pytest.warns(UserWarning):
         myDataset1 = readData("test_data32.csv")
         warnings.warn("outside of normal ECG range!", UserWarning)
-
