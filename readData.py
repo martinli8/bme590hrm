@@ -1,3 +1,6 @@
+import logging
+
+
 class readData():
     """This is a readData class. It stores the data read in from the CSV.
 
@@ -19,8 +22,14 @@ class readData():
         self.time = None
         self.voltage = None
         self.columnTime = 1
+        logging.debug("The column for time in the CSV is column %d",
+                      self.columnTime)
         self.columnVoltage = 2
+        logging.debug("The column for voltage in the CSV is column %d",
+                      self.columnVoltage)
         # self.checkTimeNan()
+        if(len(self.time) != len(self.voltage)):
+            raise ValueError("Time and Voltages array length Mismatch")
 
     @property
     def time(self):
@@ -39,12 +48,14 @@ class readData():
         import pandas as pd
         timeList = []
         timeCol = pd.read_csv(self.csvFileName, header=None, usecols=[0])
-
         for row in timeCol.values:
             timeList.append(row[0])
         timeList = pd.to_numeric(timeList, errors='coerce')
         self.__time = timeList
+        logging.info("Generating list of times from CSV")
         self.checkTimeNaN()
+        if (len(self.__time) < 10):
+            raise ValueError("Input csv is too short! Can't extract data")
 
     def checkTimeNaN(self):
         """
@@ -59,12 +70,12 @@ class readData():
         a = np.empty(1)
         b = "bad data"
         a[:] = np.nan
-        # print(a[0].type)
         self.__time = [i if i != "bad data" else a[0] for i in self.__time]
         for i, rows in enumerate(self.__time):
             if (str(self.__time[i]) == str(a[0])):
                 self.__time[i] = (
                     float(self.__time[i-1]) + float(self.__time[i+1]))/2
+                logging.warning("Bad data exists for time readings")
 
     @property
     def voltage(self):
@@ -108,6 +119,7 @@ class readData():
             if (str(self.__voltage[i]) == str(b[0])):
                 self.__voltage[i] = (
                     float(self.__voltage[i-1]) + float(self.__voltage[i+1]))/2
+                logging.warning("Bad data exists for voltage readings")
 
     def checkOutOfECGRange(self):
         """
@@ -123,4 +135,6 @@ class readData():
         voltageThreshold = 300
         outsideRange = [i for i in self.__voltage if (i >= voltageThreshold)]
         if len(outsideRange) > 0:
+            logging.warning("Outside of normal ECG range! Max value detected \
+            is over 300 ")
             warnings.warn("outside of normal ECG range!", UserWarning)
