@@ -46,6 +46,7 @@ In addition, due to the lack of a robust peak detection method, the determinatio
 
 Try and excepts are also not implemented, although they were chosen not to be implemented, since the callee already has exception raising, and the callers do not anticipate anything to go wrong in the code itself. Given the user input options, the error raising already exists to handle those cases. 
 
+Also one of the unit tests is currently marked as Xfail- comparing the output json data to the input json data. This is due to the floating point precision, and some output values are output as 0.78000000002 instead of 0.78, and a pytest.approx() equivalent comparison was difficult to achieve such that == could successfully pass. 
 
 
 
