@@ -119,6 +119,7 @@ class hrmData():
         :returns: autocorrelation data
         """
 
+    def autocorr(self, data):
         import numpy as np
         import math
         firstNValuesToSkip = 14
@@ -209,7 +210,7 @@ class hrmData():
         return self.__voltage_extremes
 
     @voltage_extremes.setter
-    def voltage_extremes(self, voltage_extremes):
+    def voltage_extremes(self, voltage_extremes):     
         """Finds the voltage extremes
 
         :param self: hrmData Object
@@ -254,4 +255,8 @@ class hrmData():
 
         """
         import numpy as np
-        self.__beats = np.linspace(0, self.duration, self.num_beats)
+        self.__beats = np.linspace(0, self.duration, self.num_beats) 
+        print(self.duration)
+        print(self.mean_hr_bpm)
+        self.__num_beats = self.duration/60*(self.mean_hr_bpm)
+

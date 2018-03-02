@@ -7,10 +7,7 @@ def main():
     myDataset = readData(csvFileName)
     hrmObject = hrmData(myDataset)
     write_to_json(csvFileName, hrmObject)
-    # with open('test_data31.json') as data_file:
-    #     data_loaded = json.load(data_file)
-    #     print(data_loaded.type)
-
+    
 
 def write_to_json(csvFileName, hrmDataClass):
     """ This method writes to a json file.
@@ -41,7 +38,6 @@ def write_to_json(csvFileName, hrmDataClass):
     import json
     with open(jsonFileName, 'w') as outfile:
         json.dump(data, outfile)
-
 
 if __name__ == "__main__":
     main()
