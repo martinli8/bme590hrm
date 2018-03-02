@@ -1,3 +1,6 @@
+import logging
+
+
 class timeSegment():
 
     """This is a timeSegment class.
@@ -18,6 +21,8 @@ class timeSegment():
 
         self.rawData = readDataClass
         self.timeSegment = timeSegment if timeSegment is not None else 2
+        logging.debug("The time segment bins are %f seconds long",
+                      self.timeSegment)
         self.listOfSegmentsIdx = None
         self.segmentList = None
 
@@ -49,9 +54,10 @@ class timeSegment():
         time = self.rawData.time
         timeValueToMatch = self.timeSegment
         lastTimePoint = time[-1]
+        logging.info("Last time point is %d ", lastTimePoint)
         lastSegmentTP = math.floor(
-                        math.floor(
-                            lastTimePoint)/self.timeSegment)*self.timeSegment
+            math.floor(
+                lastTimePoint)/self.timeSegment)*self.timeSegment
 
         indexListOfMatch = []
 
@@ -70,7 +76,7 @@ class timeSegment():
     @segmentList.setter
     def segmentList(self, segmentList):
         """
-        Finds the corresponding voltages fo reach time segment
+        Finds the corresponding voltages for each time segment
 
         :param self: timeSegment Object, segment List Attributes
         :returns: Segment lists attribute, list of list

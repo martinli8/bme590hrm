@@ -1,3 +1,7 @@
+import logging
+logging.basicConfig(filename='log.txt', level=logging.DEBUG)
+
+
 def main():
     from readData import readData
     from hrmData import hrmData
@@ -21,7 +25,6 @@ def write_to_json(csvFileName, hrmDataClass):
     import pandas as pd
     jsonFileName = csvFileName.rstrip('csv')
     jsonFileName = jsonFileName + 'json'
-    print(jsonFileName)
     mean_hr_bpm = hrmDataClass.mean_hr_bpm
     voltage_extremes = hrmDataClass.voltage_extremes
     duration = hrmDataClass.duration
@@ -38,6 +41,9 @@ def write_to_json(csvFileName, hrmDataClass):
     import json
     with open(jsonFileName, 'w') as outfile:
         json.dump(data, outfile)
+        logging.info("JSON Export successful")
+        logging.debug("Json file exported to %s", jsonFileName)
+
 
 if __name__ == "__main__":
     main()

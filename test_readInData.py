@@ -31,3 +31,9 @@ def test_checkOutOfRange():
     with pytest.warns(UserWarning):
         myDataset1 = readData("test_data32.csv")
         warnings.warn("outside of normal ECG range!", UserWarning)
+
+
+def test_raise_exceptions():
+    from readData import readData
+    with pytest.raises(ValueError):
+            myDataset1 = readData("easytestfile2.csv")

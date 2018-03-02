@@ -97,7 +97,6 @@ def test_write_json():
     from hrmData import hrmData
     from readData import readData
     import json
-    import unittest
     from timeSegment import timeSegment
     myDataset = readData("test_data31.csv")
     hrmObject = hrmData(myDataset)
@@ -113,3 +112,19 @@ def test_write_json():
     data_loaded_list = data_loaded.items()
     data_list = data.items()
     assert data_loaded_list == data_list
+
+
+def test_raise_exceptions():
+    from hrmData import hrmData
+    from readData import readData
+    from timeSegment import timeSegment
+    with pytest.raises(ValueError):
+        myDataset = readData("test_data31.csv")
+        hrmObject = hrmData(myDataset, 1, 4)
+    with pytest.raises(ValueError):
+        myDataset = readData("test_data31.csv")
+        hrmObject = hrmData(myDataset, 2, 5)
+    # with pytest.raises(ValueError):
+    #     myDataset = readData("test_data31.csv")
+    #     hrmObject = hrmData(myDataset)
+    #     hrmObject.timeSegment = 1.5
