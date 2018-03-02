@@ -1,4 +1,6 @@
 pytest-pep8
 pandas
 numpy
-
+scipy
+pytest-cov
+matplotlib
