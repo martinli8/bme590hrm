@@ -11,6 +11,7 @@ def main():
     #     data_loaded = json.load(data_file)
     #     print(data_loaded.type)
 
+
 def write_to_json(csvFileName, hrmDataClass):
     """ This method writes to a json file.
 

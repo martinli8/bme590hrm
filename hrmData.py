@@ -46,7 +46,6 @@ class hrmData():
             else self.rawData.time[-1]
         self.timeSegment = 2
         self.mean_hr_bpm = None
-        self.global_mean_hr_bpm = None
         self.voltage_extremes = None
         self.duration = self.rawData.time[-1]
         self.num_beats = None
@@ -130,7 +129,7 @@ class hrmData():
 
     def determineLagTime(self, data):
         """
-        Determines the lag time for each bin
+        Determines the lag time for each bin and returns the corresponding HR
 
         Skips the first few values to account for the first point being the
         best match, and looks for the next peak, assumes the max value is the
@@ -150,12 +149,14 @@ class hrmData():
         firstNValuesToSkip = 14
 
         for i in mySplitVoltages.segmentList:
-            ind = np.argmax(data)
+            ind = np.argmax(data)  # this is a Bug!!! should be i
             trueInd = ind - firstNValuesToSkip
             mymax = np.amax(data)
             timeAtMax = self.rawData.time[trueInd]
             heartRateOverAllTime = 60/timeAtMax
             heartRateList.append(heartRateOverAllTime)
+        self.heartRateList = heartRateList
+        print(heartRateList)
         return heartRateList
 
     def intervalHR(self, lagTimes):
@@ -169,7 +170,9 @@ class hrmData():
 
         import numpy as np
         startIdx = self.convertTimeToIdx(self.intervalStart)
+        self.startIdx = startIdx
         endIdx = self.convertTimeToIdx(self.intervalEnd)
+        self.endIdx = endIdx
         self.__mean_hr_bpm = np.mean(lagTimes[startIdx:endIdx])
         self.global_mean_hr_bpm = np.mean(lagTimes)
         # print(self.global_mean_hr_bpm)
@@ -197,8 +200,8 @@ class hrmData():
         import matplotlib.pyplot as plt
         import pandas as pd
         df = pd.DataFrame(data)
-        df.to_csv('list.csv', index=False, header=False)
-        # plt.plot(a)
+        # df.to_csv('list.csv', index=False, header=False)
+        # plt.plot(data)
         # plt.show()
 
     @property
