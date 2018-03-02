@@ -39,8 +39,10 @@ class readData():
         import pandas as pd
         timeList = []
         timeCol = pd.read_csv(self.csvFileName, header=None, usecols=[0])
+
         for row in timeCol.values:
             timeList.append(row[0])
+        timeList = pd.to_numeric(timeList, errors = 'coerce')
         self.__time = timeList
         self.checkTimeNaN()
 
@@ -84,6 +86,7 @@ class readData():
         voltageCol = pd.read_csv(self.csvFileName, header=None, usecols=[1])
         for row in voltageCol.values:
             voltList.append(row[0])
+        voltList = pd.to_numeric(voltList, errors = 'coerce')
         self.__voltage = voltList
         self.checkVoltageNan()
         # self.checkOutOfECGRange()
