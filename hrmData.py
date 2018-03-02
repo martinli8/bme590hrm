@@ -1,3 +1,6 @@
+import logging
+
+
 class hrmData():
 
     """This is a hrmData class. It calculates various endpoints regarding the
@@ -7,8 +10,8 @@ class hrmData():
         :rawData (readData): readData class that contains time and voltage
 
         :intervalStart (int): the beginning time to calculate the
-        mean heartrate, if no value specified, starts at beginning of data, or
-        time = 0, must be a multiple of timeSegment
+         heartrate, if no value specified, starts at beginning of data,
+          or time = 0, must be a multiple of timeSegment
 
         :intervalEnd (int): the ending time to calculate the mean heartrate,
         if no value specified, this value is the last possible time, must be
@@ -52,6 +55,20 @@ class hrmData():
         self.beats = None
         self.adjVol = None
 
+        logging.info("The starting time interval for calculating mean HR \
+            is at %d seconds", self.intervalStart)
+        logging.info("The ending time interval for calculating mean HR \
+            is at %d seconds", self.intervalEnd)
+        if (type(self.timeSegment) is not int):
+            raise TypeError("Time Segment value must be an integer")
+        if (self.intervalStart % self.timeSegment != 0):
+            raise ValueError("Starting interval must be a multiple of the \
+            time segment")
+        if (self.intervalEnd % self.timeSegment != 0 and
+                self.intervalEnd != self.rawData.time[-1]):
+            raise ValueError("Ending interval must be a multiple of the \
+            time segment")
+
     @property
     def mean_hr_bpm(self):
         return self.__mean_hr_bpm
@@ -68,7 +85,9 @@ class hrmData():
         the heart rate over that certain bin (time period).
 
         :param self: hrmData Object
+
         :returns: mean_hr_bpm attribute
+
         """
 
         self.meanSubtractedVoltage = self.subtractDCOffset()
@@ -83,13 +102,17 @@ class hrmData():
         Subtracts the DC offset by taking the mean of the entire signal.
 
         :param self: hrmData Object
+
         :returns: list of voltage values, mean subtracted
+
         """
 
         import numpy as np
         meanSubtractedVoltage = []
         meanVal = np.mean(self.rawData.voltage)
         # print(meanVal)
+        logging.debug("The mean subtracted voltage value is %f", meanVal)
+
         meanSubtractedVoltage[:] = [x - meanVal for x in self.rawData.voltage]
         # print(meanSubtractedVoltage)
         return meanSubtractedVoltage
@@ -100,7 +123,9 @@ class hrmData():
 
         :param self: hrmData Object
         :param data: voltage with DC subtracted
+
         :returns: list of voltage values, filter applied
+
         """
 
         from scipy.signal import savgol_filter
@@ -116,7 +141,9 @@ class hrmData():
 
         :param self: hrmData Object
         :param data: smoothed data
+
         :returns: autocorrelation data
+
         """
 
     def autocorr(self, data):
@@ -139,7 +166,9 @@ class hrmData():
 
         :param self: hrmData Object
         :param data: autocorrelation data
+
         :returns: list of heart rates(HR at each bin)
+
         """
 
         heartRateList = []
@@ -150,14 +179,21 @@ class hrmData():
         firstNValuesToSkip = 14
 
         for i in mySplitVoltages.segmentList:
+            logging.info("Running through each bin and autocorrelating now")
             ind = np.argmax(data)  # this is a Bug!!! should be i
             trueInd = ind - firstNValuesToSkip
+            logging.debug("The index at which the 2nd max for autocorr occurs \
+            at index %d ", trueInd)
             mymax = np.amax(data)
             timeAtMax = self.rawData.time[trueInd]
+            logging.debug("The corresponding time for that index is %f ",
+                          timeAtMax)
             heartRateOverAllTime = 60/timeAtMax
+            logging.debug("The heartrate for that bin is %f",
+                          heartRateOverAllTime)
             heartRateList.append(heartRateOverAllTime)
         self.heartRateList = heartRateList
-        print(heartRateList)
+        # print(heartRateList)
         return heartRateList
 
     def intervalHR(self, lagTimes):
@@ -166,7 +202,9 @@ class hrmData():
 
         :param self: hrmData Object
         :param lagTimes: List of heart rates(HR at each bin)
+
         :returns: heart rate over specified interval
+
         """
 
         import numpy as np
@@ -184,7 +222,9 @@ class hrmData():
 
         :param self: hrmData Object
         :param time: Specified time to convert to index
+
         :returns: Index of the time
+
         """
 
         import math
@@ -197,10 +237,14 @@ class hrmData():
 
         :param self: hrmData hrmObject
         :param data: Voltages to visualize
+
+        :returns: A plot
+
         """
         import matplotlib.pyplot as plt
         import pandas as pd
         df = pd.DataFrame(data)
+        logging.info("No visualizing data is plotted")
         # df.to_csv('list.csv', index=False, header=False)
         # plt.plot(data)
         # plt.show()
@@ -214,12 +258,16 @@ class hrmData():
         """Finds the voltage extremes
 
         :param self: hrmData Object
+
         :returns: voltage_extremes attribute as a Tuple
+
         """
 
         import numpy as np
         maxValue = np.amax(self.rawData.voltage)
+        logging.debug("The max voltage value determined is %f", maxValue)
         minValue = np.amin(self.rawData.voltage)
+        logging.debug("The min value voltage determined is %f", minValue)
         maxMinTuple = (maxValue, minValue)
         self.__voltage_extremes = maxMinTuple
 
@@ -233,11 +281,11 @@ class hrmData():
         the heart rate and the time accordingly
 
         :param self: hrmData Object
-        :returns: number of beats that occur (ROUGH ESTIMATE)
-        """
 
-        print(self.duration)
-        print(self.mean_hr_bpm)
+        :returns: number of beats that occur (ROUGH ESTIMATE)
+
+        """
+        logging.warning("Value of the number of beats is very inaccurate")
         self.__num_beats = self.duration/60*(self.mean_hr_bpm)
 
     @property
@@ -251,11 +299,11 @@ class hrmData():
         and the number of beats determined in num_beats, VERY ROUGH ESTIMATE
 
         :param self: hrmData Object
+
         :returns: beats attribute
 
         """
         import numpy as np
+        logging.warning("Time at which beats occur is very inaccurate")
         self.__beats = np.linspace(0, self.duration, self.num_beats)
-        print(self.duration)
-        print(self.mean_hr_bpm)
         self.__num_beats = self.duration/60*(self.mean_hr_bpm)
