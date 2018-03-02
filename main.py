@@ -7,7 +7,7 @@ def main():
     myDataset = readData(csvFileName)
     hrmObject = hrmData(myDataset)
     write_to_json(csvFileName, hrmObject)
-    
+
 
 def write_to_json(csvFileName, hrmDataClass):
     """ This method writes to a json file.
