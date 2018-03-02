@@ -12,8 +12,8 @@ def test_faulty_data_load():
 
     badDataTime = 3.86
     badDataVoltage = -0.025
-    assert myDataset2.time[965] == badDataTime
-    assert myDataset2.voltage[972] == badDataVoltage
+    assert pytest.approx(myDataset2.time[965]) == badDataTime
+    assert pytest.approx(myDataset2.voltage[972]) == badDataVoltage
 
 
 def test_regular_data_read():
